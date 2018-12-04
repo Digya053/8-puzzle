@@ -1,5 +1,0 @@
-path_to_goal: []
-cost_of_path: 0
-search_depth: 0
-running_time: 0.144
-max_ram_usage: 34.1484375
