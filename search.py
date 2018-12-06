@@ -1,11 +1,11 @@
 from collections import deque
+import numpy as np
 
 class Search:
 
     def __init__(self):
         self.path_to_solution = []
         self.states = []
-
 
     def bfs(self, puzzle_board):
         frontier = deque()
@@ -22,11 +22,11 @@ class Search:
                 return len(self.path_to_solution), self.states
 
             children = puzzle.expand()
-            for c in range(len(children)):
-                if children[c] not in frontier and tuple(
-                        children[c].puzzle_state) not in explored:
-                    frontier.append(children[c])
 
+            for c in children[::-1]:
+                if tuple(c.puzzle_state) not in explored:
+                    frontier.append(c)
+                    explored.add(tuple(c.puzzle_state))
 
     def dfs(self, puzzle_board):
         frontier = []
@@ -43,18 +43,18 @@ class Search:
                 return len(self.path_to_solution), self.states
 
             children = puzzle.expand()
-            for c in range(len(children))[::-1]:
-                if children[c] not in frontier and tuple(
-                        children[c].puzzle_state) not in explored:
-                    frontier.append(children[c])
 
+            for c in children[::-1]:
+                if tuple(c.puzzle_state) not in explored:
+                    frontier.append(c)
+                    explored.add(tuple(c.puzzle_state))
 
     def path_trace(self, path_to_solution, child):
         print("Tracing path...")
         while child.parent:
             parent = child.parent
+            parent.print_puzzle()
             child.print_puzzle()
             self.states.append(child.state)
             path_to_solution.append(child)
             child = parent
-

@@ -4,6 +4,7 @@ import numpy as np
 import resource
 from search import Search
 
+
 class PuzzleBoard:
 
     def __init__(self, puzzle_state, parent=None, state="Initial"):
